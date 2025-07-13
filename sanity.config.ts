@@ -7,7 +7,7 @@ export default defineConfig({
   name: 'default',
   title: 'My Blog CMS',
 
-  projectId: 'your-project-id', // TODO: 実際のプロジェクトIDに置き換えてください
+  projectId: 'y6760ny1', // SanityプロジェクトID
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],

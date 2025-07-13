@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ラクマ商品情報取得ツール</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen py-8">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- ヘッダー -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-900">🔍 ラクマ商品情報取得ツール</h1>
+                <p class="mt-2 text-gray-600">
+                    ラクマの商品URLから商品情報を自動取得してサイトに表示します
+                </p>
+            </div>
+
+            <!-- URL入力フォーム -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <form id="scrapeForm" class="space-y-4">
+                    <div>
+                        <label for="url" class="block text-sm font-medium text-gray-700 mb-2">
+                            ラクマ商品URL
+                        </label>
+                        <input
+                            type="url"
+                            id="url"
+                            placeholder="https://fril.jp/item/... または https://rakuma.rakuten.co.jp/item/..."
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                            required
+                        />
+                        <p class="mt-1 text-sm text-gray-500">
+                            例: https://fril.jp/item/abc123def456 または https://rakuma.rakuten.co.jp/item/xxx
+                        </p>
+                    </div>
+                    
+                    <button
+                        type="submit"
+                        id="scrapeBtn"
+                        class="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                        🔍 商品情報を取得
+                    </button>
+                </form>
+
+                <!-- エラー表示 -->
+                <div id="errorDiv" class="hidden mt-4 p-4 bg-red-50 border border-red-200 rounded-md">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <p id="errorText" class="text-sm text-red-700"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 取得した商品情報の表示 -->
+            <div id="productResult" class="hidden bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-xl font-semibold text-gray-900">✅ 取得した商品情報</h2>
+                    <button
+                        id="addToSiteBtn"
+                        class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                    >
+                        🛍️ サイトに追加
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- 商品画像 -->
+                    <div>
+                        <div id="imageContainer" class="relative aspect-square rounded-lg overflow-hidden bg-gray-100">
+                            <img id="productImage" class="w-full h-full object-cover" alt="商品画像">
+                            <div id="noImagePlaceholder" class="hidden w-full h-full flex items-center justify-center">
+                                <span class="text-gray-400">📷 画像なし</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 商品詳細 -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">商品名</label>
+                            <p id="productTitle" class="mt-1 text-sm text-gray-900 bg-gray-50 p-3 rounded-md"></p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">価格</label>
+                            <p id="productPrice" class="mt-1 text-lg font-bold text-gray-900 bg-gray-50 p-3 rounded-md"></p>
+                        </div>
+
+                        <div id="brandContainer" class="hidden">
+                            <label class="block text-sm font-medium text-gray-700">ブランド</label>
+                            <p id="productBrand" class="mt-1 text-sm text-gray-900 bg-gray-50 p-3 rounded-md"></p>
+                        </div>
+
+                        <div id="conditionContainer" class="hidden">
+                            <label class="block text-sm font-medium text-gray-700">商品の状態</label>
+                            <p id="productCondition" class="mt-1 text-sm text-gray-900 bg-gray-50 p-3 rounded-md"></p>
+                        </div>
+
+                        <div id="descriptionContainer" class="hidden">
+                            <label class="block text-sm font-medium text-gray-700">説明</label>
+                            <p id="productDescription" class="mt-1 text-sm text-gray-900 bg-gray-50 p-3 rounded-md max-h-32 overflow-y-auto"></p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">取得元</label>
+                            <p id="productSource" class="mt-1 text-sm text-gray-900 bg-gray-50 p-3 rounded-md">ラクマ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 使用方法 -->
+            <div class="mt-8 bg-blue-50 border border-blue-200 rounded-md p-4">
+                <h3 class="text-sm font-medium text-blue-800 mb-2">📝 使用方法</h3>
+                <ol class="text-sm text-blue-700 space-y-1">
+                    <li>1. ラクマの商品ページを開く</li>
+                    <li>2. ブラウザのアドレスバーからURLをコピー</li>
+                    <li>3. 上記フォームにURLを貼り付け</li>
+                    <li>4. 「商品情報を取得」ボタンをクリック</li>
+                    <li>5. 取得された情報を確認</li>
+                    <li>6. 「サイトに追加」で商品をサイトに追加（デモ）</li>
+                </ol>
+            </div>
+
+            <!-- サンプルURL -->
+            <div class="mt-4 bg-yellow-50 border border-yellow-200 rounded-md p-4">
+                <h3 class="text-sm font-medium text-yellow-800 mb-2">🔗 テスト用サンプルURL</h3>
+                <p class="text-sm text-yellow-700 mb-2">以下のボタンでサンプルURLを入力できます：</p>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="setTestUrl('https://fril.jp/item/sample1')" class="px-3 py-1 bg-yellow-200 text-yellow-800 rounded text-xs">
+                        サンプル1
+                    </button>
+                    <button onclick="setTestUrl('https://rakuma.rakuten.co.jp/item/sample2')" class="px-3 py-1 bg-yellow-200 text-yellow-800 rounded text-xs">
+                        サンプル2
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // グローバル変数
+        let currentProductData = null;
+
+        // フォーム送信処理
+        document.getElementById('scrapeForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const url = document.getElementById('url').value;
+            const scrapeBtn = document.getElementById('scrapeBtn');
+            const errorDiv = document.getElementById('errorDiv');
+            const productResult = document.getElementById('productResult');
+            
+            // リセット
+            hideError();
+            hideResult();
+            
+            // ローディング状態
+            scrapeBtn.innerHTML = '⏳ 取得中...';
+            scrapeBtn.disabled = true;
+            
+            try {
+                // デモ用のモック処理（実際のAPIは使用できない環境での代替）
+                if (url.includes('sample')) {
+                    const mockData = getMockData(url);
+                    displayResult(mockData);
+                } else {
+                    // 実際のAPI呼び出し（本来の処理）
+                    const response = await fetch('/api/scrape', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ url }),
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(data.error || '商品情報の取得に失敗しました');
+                    }
+
+                    displayResult(data);
+                }
+            } catch (err) {
+                showError(err.message || '予期しないエラーが発生しました');
+            } finally {
+                // ローディング状態解除
+                scrapeBtn.innerHTML = '🔍 商品情報を取得';
+                scrapeBtn.disabled = false;
+            }
+        });
+
+        // モックデータ生成
+        function getMockData(url) {
+            const samples = {
+                'sample1': {
+                    title: 'LOUIS VUITTON モノグラム ネヴァーフル MM トートバッグ',
+                    image: 'https://via.placeholder.com/400x400/8B4513/FFFFFF?text=LV+Sample',
+                    price: '89000',
+                    description: 'ルイ・ヴィトンの人気トートバッグです。多少の使用感がありますが、まだまだお使いいただけます。',
+                    brand: 'LOUIS VUITTON',
+                    condition: '目立った傷や汚れなし',
+                    source: 'rakuma'
+                },
+                'sample2': {
+                    title: 'CHANEL マトラッセ チェーンショルダーバッグ ブラック',
+                    image: 'https://via.placeholder.com/400x400/000000/FFFFFF?text=CHANEL+Sample',
+                    price: '128000',
+                    description: 'シャネルの定番マトラッセです。状態良好で、まだまだ長くお使いいただけます。',
+                    brand: 'CHANEL',
+                    condition: '未使用に近い',
+                    source: 'rakuma'
+                }
+            };
+            
+            const key = url.includes('sample1') ? 'sample1' : 'sample2';
+            return samples[key];
+        }
+
+        // 結果表示
+        function displayResult(data) {
+            currentProductData = data;
+            
+            document.getElementById('productTitle').textContent = data.title;
+            document.getElementById('productPrice').textContent = `¥${parseInt(data.price).toLocaleString()}`;
+            
+            // 画像処理
+            const productImage = document.getElementById('productImage');
+            const noImagePlaceholder = document.getElementById('noImagePlaceholder');
+            
+            if (data.image) {
+                productImage.src = data.image;
+                productImage.classList.remove('hidden');
+                noImagePlaceholder.classList.add('hidden');
+            } else {
+                productImage.classList.add('hidden');
+                noImagePlaceholder.classList.remove('hidden');
+            }
+
+            // オプション情報の表示
+            toggleElement('brandContainer', 'productBrand', data.brand);
+            toggleElement('conditionContainer', 'productCondition', data.condition);
+            toggleElement('descriptionContainer', 'productDescription', data.description);
+            
+            document.getElementById('productResult').classList.remove('hidden');
+        }
+
+        // 要素の表示/非表示切り替え
+        function toggleElement(containerId, textId, value) {
+            const container = document.getElementById(containerId);
+            const textElement = document.getElementById(textId);
+            
+            if (value && value.trim()) {
+                textElement.textContent = value;
+                container.classList.remove('hidden');
+            } else {
+                container.classList.add('hidden');
+            }
+        }
+
+        // エラー表示
+        function showError(message) {
+            document.getElementById('errorText').textContent = message;
+            document.getElementById('errorDiv').classList.remove('hidden');
+        }
+
+        // エラー非表示
+        function hideError() {
+            document.getElementById('errorDiv').classList.add('hidden');
+        }
+
+        // 結果非表示
+        function hideResult() {
+            document.getElementById('productResult').classList.add('hidden');
+        }
+
+        // テストURL設定
+        function setTestUrl(url) {
+            document.getElementById('url').value = url;
+        }
+
+        // サイトに追加ボタン
+        document.getElementById('addToSiteBtn').addEventListener('click', function() {
+            if (currentProductData) {
+                alert('🎉 商品がサイトに追加されました！\\n\\n商品名: ' + currentProductData.title + '\\n価格: ¥' + parseInt(currentProductData.price).toLocaleString() + '\\n\\n（デモ機能です）');
+            }
+        });
+    </script>
+</body>
+</html>

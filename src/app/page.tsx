@@ -35,6 +35,36 @@ export default function Home() {
         </a>
 
         <a
+          href="/products"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100"
+        >
+          <h2 className="mb-3 text-2xl font-semibold">
+            商品一覧{' '}
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+          </h2>
+          <p className="m-0 text-sm opacity-50">
+            ブランドバッグを見る
+          </p>
+        </a>
+
+        <a
+          href="/admin"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100"
+        >
+          <h2 className="mb-3 text-2xl font-semibold">
+            商品取得ツール{' '}
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+          </h2>
+          <p className="m-0 text-sm opacity-50">
+            ラクマから商品情報を自動取得
+          </p>
+        </a>
+
+        <a
           href="/landing"
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100"
         >

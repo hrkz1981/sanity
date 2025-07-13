@@ -5,6 +5,7 @@ import landingPage from './landingPage'
 import hero from './hero'
 import features from './features'
 import blockContent from './blockContent'
+import product from './product'
 
 export const schemaTypes = [
   post,
@@ -14,4 +15,5 @@ export const schemaTypes = [
   hero,
   features,
   blockContent,
+  product,
 ]

@@ -1,4 +1,4 @@
-// モックデータ（開発用）
+// ブログ記事モックデータ
 export const mockPosts = [
   {
     _id: '1',
@@ -89,5 +89,189 @@ export const mockPosts = [
         color: 'purple'
       }
     ]
+  }
+]
+
+// 商品モックデータ
+export const mockProducts = [
+  {
+    _id: 'product1',
+    title: 'LOUIS VUITTON モノグラム ネヴァーフル MM トートバッグ',
+    slug: { current: 'louis-vuitton-neverfull-mm' },
+    mainImage: {
+      asset: {
+        _id: 'img1',
+        url: 'https://via.placeholder.com/400x400/8B4513/FFFFFF?text=LV+Neverfull'
+      },
+      alt: 'ルイ・ヴィトン ネヴァーフル'
+    },
+    price: 89000,
+    originalPrice: 198000,
+    brand: 'LOUIS VUITTON',
+    condition: 'good',
+    isAvailable: true,
+    featured: true,
+    category: 'tote',
+    rakumaUrl: 'https://fril.jp/item/123456789'
+  },
+  {
+    _id: 'product2', 
+    title: 'CHANEL マトラッセ チェーンショルダーバッグ ブラック',
+    slug: { current: 'chanel-matelasse-chain-shoulder' },
+    mainImage: {
+      asset: {
+        _id: 'img2',
+        url: 'https://via.placeholder.com/400x400/000000/FFFFFF?text=CHANEL+Bag'
+      },
+      alt: 'シャネル マトラッセ'
+    },
+    price: 128000,
+    originalPrice: 280000,
+    brand: 'CHANEL',
+    condition: 'like-new',
+    isAvailable: true,
+    featured: true,
+    category: 'shoulder',
+    rakumaUrl: 'https://fril.jp/item/123456790'
+  },
+  {
+    _id: 'product3',
+    title: 'HERMES バーキン30 エトープ トゴレザー',
+    slug: { current: 'hermes-birkin-30-etoupe' },
+    mainImage: {
+      asset: {
+        _id: 'img3',
+        url: 'https://via.placeholder.com/400x400/A0522D/FFFFFF?text=HERMES+Birkin'
+      },
+      alt: 'エルメス バーキン30'
+    },
+    price: 1680000,
+    originalPrice: 2100000,
+    brand: 'HERMES',
+    condition: 'like-new',
+    isAvailable: true,
+    featured: true,
+    category: 'handbag',
+    rakumaUrl: 'https://fril.jp/item/123456791'
+  },
+  {
+    _id: 'product4',
+    title: 'GUCCI GG マーモント スモール ショルダーバッグ',
+    slug: { current: 'gucci-gg-marmont-small' },
+    mainImage: {
+      asset: {
+        _id: 'img4',
+        url: 'https://via.placeholder.com/400x400/013220/FFFFFF?text=GUCCI+GG'
+      },
+      alt: 'グッチ マーモント'
+    },
+    price: 78000,
+    originalPrice: 165000,
+    brand: 'GUCCI',
+    condition: 'good',
+    isAvailable: true,
+    featured: false,
+    category: 'shoulder',
+    rakumaUrl: 'https://fril.jp/item/123456792'
+  },
+  {
+    _id: 'product5',
+    title: 'PRADA ナイロン バックパック リュック ブラック',
+    slug: { current: 'prada-nylon-backpack-black' },
+    mainImage: {
+      asset: {
+        _id: 'img5',
+        url: 'https://via.placeholder.com/400x400/1a1a1a/FFFFFF?text=PRADA+Nylon'
+      },
+      alt: 'プラダ ナイロン バックパック'
+    },
+    price: 45000,
+    originalPrice: 95000,
+    brand: 'PRADA',
+    condition: 'good',
+    isAvailable: true,
+    featured: false,
+    category: 'backpack',
+    rakumaUrl: 'https://fril.jp/item/123456793'
+  },
+  {
+    _id: 'product6',
+    title: 'CELINE ラゲージ マイクロ ハンドバッグ ベージュ',
+    slug: { current: 'celine-luggage-micro-beige' },
+    mainImage: {
+      asset: {
+        _id: 'img6',
+        url: 'https://via.placeholder.com/400x400/D2B48C/000000?text=CELINE+Luggage'
+      },
+      alt: 'セリーヌ ラゲージ'
+    },
+    price: 165000,
+    originalPrice: 385000,
+    brand: 'CELINE',
+    condition: 'fair',
+    isAvailable: false,
+    featured: false,
+    category: 'handbag',
+    rakumaUrl: 'https://fril.jp/item/123456794'
+  },
+  {
+    _id: 'product7',
+    title: 'BOTTEGA VENETA イントレチャート クラッチバッグ',
+    slug: { current: 'bottega-veneta-intrecciato-clutch' },
+    mainImage: {
+      asset: {
+        _id: 'img7',
+        url: 'https://via.placeholder.com/400x400/8B4513/FFFFFF?text=BOTTEGA+VENETA'
+      },
+      alt: 'ボッテガヴェネタ クラッチ'
+    },
+    price: 52000,
+    originalPrice: 125000,
+    brand: 'BOTTEGA VENETA',
+    condition: 'good',
+    isAvailable: true,
+    featured: false,
+    category: 'clutch',
+    rakumaUrl: 'https://fril.jp/item/123456795'
+  },
+  {
+    _id: 'product8',
+    title: 'DIOR サドルバッグ オブリーク ジャガード',
+    slug: { current: 'dior-saddle-bag-oblique' },
+    mainImage: {
+      asset: {
+        _id: 'img8',
+        url: 'https://via.placeholder.com/400x400/B8860B/000000?text=DIOR+Saddle'
+      },
+      alt: 'ディオール サドルバッグ'
+    },
+    price: 198000,
+    originalPrice: 490000,
+    brand: 'DIOR',
+    condition: 'like-new',
+    isAvailable: true,
+    featured: false,
+    category: 'shoulder',
+    rakumaUrl: 'https://fril.jp/item/123456796'
+  },
+  {
+    _id: 'product9',
+    title: 'ラクマ掲載商品 - サンプル商品',
+    slug: { current: 'rakuma-sample-product' },
+    mainImage: {
+      asset: {
+        _id: 'img9',
+        url: 'https://via.placeholder.com/400x400/6366F1/FFFFFF?text=ラクマ商品'
+      },
+      alt: 'ラクマサンプル商品'
+    },
+    price: 15000,
+    originalPrice: 25000,
+    brand: 'ラクマブランド',
+    condition: 'good',
+    isAvailable: true,
+    featured: true,
+    category: 'other',
+    rakumaUrl: 'https://item.fril.jp/dd5d72b495a60645e44b174d4c4da9a2?_gl=1*watjm1*Rakuma_gcl_au*NDI1Mzc4Mzk4LjE3NTE0MDYzNTY.*_gcl_au*MTk3MDEzNTU0NC4xNzUxNDA2MzU3LjQzNzI1OTQzLjE3NTE0MDY0ODEuMTc1MTQwNjUwMg..*_ga*MTM2MjQzNTk4NC4xNzUxNDA2MzU2*_ga_7KV9PBS698*czE3NTI0MTAzNzYkbzMwJGcxJHQxNzUyNDEwMzkwJGo0NiRsMCRoMA..'
   }
 ]
