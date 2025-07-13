@@ -1,0 +1,16 @@
+[build]
+  publish = "."
+  command = "echo 'No build needed for static site'"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/products"
+  to = "/products-demo.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/products-demo.html"
+  status = 200
