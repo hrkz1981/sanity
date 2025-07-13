@@ -101,7 +101,7 @@ export const mockProducts = [
     mainImage: {
       asset: {
         _id: 'img1',
-        url: 'https://via.placeholder.com/400x400/8B4513/FFFFFF?text=LV+Neverfull'
+        url: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop&crop=center'
       },
       alt: 'ルイ・ヴィトン ネヴァーフル'
     },
@@ -121,7 +121,7 @@ export const mockProducts = [
     mainImage: {
       asset: {
         _id: 'img2',
-        url: 'https://via.placeholder.com/400x400/000000/FFFFFF?text=CHANEL+Bag'
+        url: 'https://images.unsplash.com/photo-1591370874773-6702e8f12fd8?w=400&h=400&fit=crop&crop=center'
       },
       alt: 'シャネル マトラッセ'
     },
@@ -141,7 +141,7 @@ export const mockProducts = [
     mainImage: {
       asset: {
         _id: 'img3',
-        url: 'https://via.placeholder.com/400x400/A0522D/FFFFFF?text=HERMES+Birkin'
+        url: 'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=400&h=400&fit=crop&crop=center'
       },
       alt: 'エルメス バーキン30'
     },
@@ -256,22 +256,22 @@ export const mockProducts = [
   },
   {
     _id: 'product9',
-    title: 'ラクマ掲載商品 - サンプル商品',
-    slug: { current: 'rakuma-sample-product' },
+    title: '美品✨️TOD\'S トッズ 2way トートバッグ ハンドバッグ 肩掛け レザー',
+    slug: { current: 'tods-2way-tote-bag' },
     mainImage: {
       asset: {
         _id: 'img9',
-        url: 'https://via.placeholder.com/400x400/6366F1/FFFFFF?text=ラクマ商品'
+        url: 'https://img.fril.jp/img/775995401/l/2630482225.jpg?1752095872'
       },
-      alt: 'ラクマサンプル商品'
+      alt: 'TOD\'S トッズ 2way トートバッグ'
     },
-    price: 15000,
-    originalPrice: 25000,
-    brand: 'ラクマブランド',
-    condition: 'good',
+    price: 24880,
+    originalPrice: 45000,
+    brand: 'TOD\'S',
+    condition: 'like-new',
     isAvailable: true,
     featured: true,
-    category: 'other',
-    rakumaUrl: 'https://item.fril.jp/dd5d72b495a60645e44b174d4c4da9a2?_gl=1*watjm1*Rakuma_gcl_au*NDI1Mzc4Mzk4LjE3NTE0MDYzNTY.*_gcl_au*MTk3MDEzNTU0NC4xNzUxNDA2MzU3LjQzNzI1OTQzLjE3NTE0MDY0ODEuMTc1MTQwNjUwMg..*_ga*MTM2MjQzNTk4NC4xNzUxNDA2MzU2*_ga_7KV9PBS698*czE3NTI0MTAzNzYkbzMwJGcxJHQxNzUyNDEwMzkwJGo0NiRsMCRoMA..'
+    category: 'tote',
+    rakumaUrl: 'https://item.fril.jp/dd5d72b495a60645e44b174d4c4da9a2'
   }
 ]
