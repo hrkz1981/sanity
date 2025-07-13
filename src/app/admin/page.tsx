@@ -51,8 +51,46 @@ export default function AdminPage() {
   const handleAddToSanity = async () => {
     if (!productData) return
     
-    // ここでSanityに商品を追加する処理
-    alert('Sanityへの保存機能は実装予定です')
+    try {
+      // Sanity Studio URLを開く
+      const sanityStudioUrl = '/admin/desk/product'
+      
+      // 取得したデータをローカルストレージに保存
+      const sanityData = {
+        title: productData.title,
+        slug: {
+          current: productData.title
+            .toLowerCase()
+            .replace(/[^a-zA-Z0-9\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF]/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-|-$/g, '')
+            .substring(0, 96)
+        },
+        price: parseInt(productData.price) || 0,
+        description: productData.description,
+        brand: productData.brand,
+        condition: 'good', // デフォルト値
+        category: 'other', // デフォルト値
+        isAvailable: true,
+        featured: false,
+        rakumaUrl: url,
+        autoFetchData: {
+          lastFetched: new Date().toISOString(),
+          fetchStatus: 'success',
+          originalData: JSON.stringify(productData)
+        }
+      }
+      
+      localStorage.setItem('pendingSanityProduct', JSON.stringify(sanityData))
+      
+      alert(`商品データを一時保存しました。Sanity Studioで商品を作成する際に、保存されたデータが自動入力されます。\n\n商品名: ${productData.title}`)
+      
+      // Sanity Studioを新しいタブで開く
+      window.open('/admin', '_blank')
+      
+    } catch (error) {
+      alert('保存に失敗しました: ' + error)
+    }
   }
 
   return (

@@ -130,6 +130,51 @@ export default defineType({
       title: 'ラクマ商品URL',
       type: 'url',
       validation: (Rule) => Rule.required(),
+      description: 'ラクマ商品URLを入力すると、自動的に商品情報を取得します',
+      components: {
+        input: (props) => {
+          // 動的インポートでコンポーネントを読み込み
+          if (typeof window !== 'undefined') {
+            const RakumaUrlInput = require('../src/components/RakumaUrlInput').default
+            return RakumaUrlInput(props)
+          }
+          // サーバーサイドでは通常の入力フィールドを表示
+          return props.renderDefault(props)
+        }
+      }
+    }),
+    defineField({
+      name: 'autoFetchData',
+      title: '自動データ取得',
+      type: 'object',
+      fields: [
+        {
+          name: 'lastFetched',
+          title: '最終取得日時',
+          type: 'datetime',
+          readOnly: true,
+        },
+        {
+          name: 'fetchStatus',
+          title: '取得ステータス',
+          type: 'string',
+          readOnly: true,
+          options: {
+            list: [
+              {title: '成功', value: 'success'},
+              {title: '失敗', value: 'error'},
+              {title: '取得中', value: 'fetching'},
+            ]
+          }
+        },
+        {
+          name: 'originalData',
+          title: '取得元データ',
+          type: 'text',
+          readOnly: true,
+        }
+      ],
+      description: '自動取得されたデータの管理情報',
     }),
     defineField({
       name: 'isAvailable',

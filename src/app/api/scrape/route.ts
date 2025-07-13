@@ -51,12 +51,13 @@ function extractProductData(html: string) {
   let title = ''
   let image = ''
   let price = ''
+  let numPrice = 0
 
   // タイトル抽出
   if (ogTitleMatch) {
-    title = ogTitleMatch[1].replace(' | ラクマ', '').trim()
+    title = ogTitleMatch[1].replace(' | ラクマ', '').replace(' | フリル', '').trim()
   } else if (titleMatch) {
-    title = titleMatch[1].replace(' | ラクマ', '').trim()
+    title = titleMatch[1].replace(' | ラクマ', '').replace(' | フリル', '').trim()
   }
 
   // 画像抽出
@@ -64,9 +65,11 @@ function extractProductData(html: string) {
     image = ogImageMatch[1]
   }
 
-  // 価格抽出
+  // 価格抽出（改良版）
   if (priceMatch && priceMatch.length > 0) {
-    price = priceMatch[0].replace('¥', '').replace(',', '')
+    // 最初に見つかった価格を使用
+    price = priceMatch[0].replace('¥', '').replace(/,/g, '')
+    numPrice = parseInt(price) || 0
   }
 
   // より詳細な情報を抽取するための追加パターン
@@ -74,14 +77,62 @@ function extractProductData(html: string) {
   const brandMatch = html.match(/ブランド[：:]\s*([^<\n]*)/i)
   const conditionMatch = html.match(/商品の状態[：:]\s*([^<\n]*)/i)
 
+  // カテゴリー推測
+  let category = 'other'
+  const titleLower = title.toLowerCase()
+  if (titleLower.includes('トート') || titleLower.includes('tote')) {
+    category = 'tote'
+  } else if (titleLower.includes('ショルダー') || titleLower.includes('shoulder')) {
+    category = 'shoulder'
+  } else if (titleLower.includes('ハンドバッグ') || titleLower.includes('handbag')) {
+    category = 'handbag'
+  } else if (titleLower.includes('リュック') || titleLower.includes('バックパック')) {
+    category = 'backpack'
+  } else if (titleLower.includes('クラッチ')) {
+    category = 'clutch'
+  } else if (titleLower.includes('ボストン')) {
+    category = 'boston'
+  }
+
+  // 状態マッピング
+  let conditionValue = 'good'
+  if (conditionMatch) {
+    const cond = conditionMatch[1].toLowerCase()
+    if (cond.includes('新品') || cond.includes('未使用')) {
+      conditionValue = 'new'
+    } else if (cond.includes('未使用に近い')) {
+      conditionValue = 'like-new'
+    } else if (cond.includes('やや傷') || cond.includes('やや汚れ')) {
+      conditionValue = 'fair'
+    } else if (cond.includes('傷') || cond.includes('汚れ')) {
+      conditionValue = 'poor'
+    } else if (cond.includes('状態が悪い')) {
+      conditionValue = 'bad'
+    }
+  }
+
+  // スラッグ生成
+  const slug = title
+    .toLowerCase()
+    .replace(/[^a-zA-Z0-9\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+    .substring(0, 96)
+
   return {
     title: title || '商品名を取得できませんでした',
+    slug: slug,
     image: image || '',
-    price: price || '0',
-    description: descriptionMatch ? descriptionMatch[1] : '',
+    price: numPrice,
+    priceString: price || '0',
+    description: descriptionMatch ? descriptionMatch[1] : title,
     brand: brandMatch ? brandMatch[1].trim() : '',
-    condition: conditionMatch ? conditionMatch[1].trim() : '',
-    source: 'rakuma'
+    condition: conditionValue,
+    category: category,
+    isAvailable: true,
+    featured: false,
+    source: 'rakuma',
+    fetchedAt: new Date().toISOString()
   }
 }
 
