@@ -8,106 +8,66 @@
 </head>
 <body class="bg-gray-50">
     <div class="min-h-screen py-8">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- ヘッダー -->
             <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold text-gray-900">ラクマ商品管理システム</h1>
-                <p class="mt-2 text-gray-600">商品情報を入力してサイトに追加</p>
+                <h1 class="text-3xl font-bold text-gray-900">🛍️ ラクマ商品追加</h1>
+                <p class="mt-2 text-gray-600">URLを貼り付けるだけで簡単追加</p>
             </div>
 
-            <!-- 商品追加フォーム -->
-            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                <h2 class="text-xl font-semibold mb-4">新しい商品を追加</h2>
-                <form id="productForm" class="space-y-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">ラクマ商品URL *</label>
-                            <input type="url" id="rakumaUrl" required 
-                                   placeholder="https://item.fril.jp/..."
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">商品名 *</label>
-                            <input type="text" id="title" required 
-                                   placeholder="商品名を入力"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">価格（円）*</label>
-                            <input type="number" id="price" required 
-                                   placeholder="15000"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">定価（円）</label>
-                            <input type="number" id="originalPrice" 
-                                   placeholder="25000"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">ブランド</label>
-                            <input type="text" id="brand" 
-                                   placeholder="LOUIS VUITTON"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">商品の状態 *</label>
-                            <select id="condition" required 
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                <option value="">選択してください</option>
-                                <option value="new">新品・未使用</option>
-                                <option value="like-new">未使用に近い</option>
-                                <option value="good">目立った傷や汚れなし</option>
-                                <option value="fair">やや傷や汚れあり</option>
-                                <option value="poor">傷や汚れあり</option>
-                                <option value="bad">全体的に状態が悪い</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">カテゴリー *</label>
-                            <select id="category" required 
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                <option value="">選択してください</option>
-                                <option value="handbag">ハンドバッグ</option>
-                                <option value="shoulder">ショルダーバッグ</option>
-                                <option value="tote">トートバッグ</option>
-                                <option value="backpack">リュック・バックパック</option>
-                                <option value="clutch">クラッチバッグ</option>
-                                <option value="boston">ボストンバッグ</option>
-                                <option value="other">その他</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">画像URL</label>
-                            <input type="url" id="imageUrl" 
-                                   placeholder="https://..."
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">商品説明</label>
-                        <textarea id="description" rows="3" 
-                                  placeholder="商品の詳細説明"
-                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
-                    </div>
-
-                    <div class="flex items-center space-x-4">
-                        <label class="flex items-center">
-                            <input type="checkbox" id="featured" class="mr-2">
-                            <span class="text-sm text-gray-700">おすすめ商品にする</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" id="isAvailable" checked class="mr-2">
-                            <span class="text-sm text-gray-700">販売中</span>
-                        </label>
-                    </div>
-
-                    <button type="submit" 
-                            class="w-full bg-purple-600 text-white px-4 py-3 rounded-md hover:bg-purple-700 font-bold">
-                        🛍️ 商品をサイトに追加
+            <!-- URL入力 -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <label class="block text-lg font-medium text-gray-700 mb-4">ラクマ商品URL</label>
+                <div class="flex gap-3">
+                    <input type="url" id="rakumaUrl" 
+                           placeholder="https://item.fril.jp/... をペースト"
+                           class="flex-1 px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-lg">
+                    <button onclick="fetchProductInfo()" 
+                            class="bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-purple-700 font-bold">
+                        取得
                     </button>
-                </form>
+                </div>
+                <p class="text-sm text-gray-500 mt-2">
+                    💡 ラクマの商品ページURLを貼り付けて「取得」ボタンを押してください
+                </p>
+            </div>
+
+            <!-- ローディング -->
+            <div id="loading" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <div class="flex items-center">
+                    <div class="animate-spin h-5 w-5 border-2 border-purple-600 border-t-transparent rounded-full mr-3"></div>
+                    <span class="text-blue-700">商品情報を取得中...</span>
+                </div>
+            </div>
+
+            <!-- 商品プレビュー -->
+            <div id="productPreview" class="hidden bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-lg font-bold mb-4">取得した商品情報</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <img id="productImage" src="" alt="商品画像" 
+                             class="w-full aspect-square object-cover rounded-lg bg-gray-100">
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-500">商品名</label>
+                            <p id="productTitle" class="text-lg font-medium text-gray-900"></p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-500">価格</label>
+                            <p id="productPrice" class="text-xl font-bold text-purple-600"></p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-500">ラクマURL</label>
+                            <p id="productUrl" class="text-sm text-blue-600 break-all"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="addToSite()" 
+                        class="w-full mt-6 bg-green-600 text-white px-4 py-3 rounded-md hover:bg-green-700 font-bold text-lg">
+                    ✅ この商品をサイトに追加
+                </button>
             </div>
 
             <!-- 生成されたコード表示エリア -->
@@ -134,30 +94,110 @@
     </div>
 
     <script>
-        // フォーム送信処理
-        document.getElementById('productForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        let currentProduct = null;
+
+        // 商品情報取得
+        async function fetchProductInfo() {
+            const url = document.getElementById('rakumaUrl').value;
             
-            const formData = {
-                title: document.getElementById('title').value,
-                rakumaUrl: document.getElementById('rakumaUrl').value,
-                price: parseInt(document.getElementById('price').value) || 0,
-                originalPrice: parseInt(document.getElementById('originalPrice').value) || null,
-                brand: document.getElementById('brand').value || '',
-                condition: document.getElementById('condition').value,
-                category: document.getElementById('category').value,
-                imageUrl: document.getElementById('imageUrl').value || 'https://via.placeholder.com/400x400/6366F1/FFFFFF?text=商品画像',
-                description: document.getElementById('description').value || '',
-                featured: document.getElementById('featured').checked,
-                isAvailable: document.getElementById('isAvailable').checked
+            if (!url || (!url.includes('fril.jp') && !url.includes('rakuma.rakuten.co.jp'))) {
+                alert('有効なラクマURLを入力してください');
+                return;
+            }
+
+            // ローディング表示
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('productPreview').classList.add('hidden');
+
+            try {
+                // URLからページを取得（CORS制限のためプロキシを使用）
+                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+                const response = await fetch(proxyUrl);
+                const data = await response.json();
+                const html = data.contents;
+
+                // HTML解析して商品情報を抽出
+                const productInfo = extractProductInfo(html, url);
+                
+                if (productInfo.title) {
+                    displayProduct(productInfo);
+                } else {
+                    throw new Error('商品情報を取得できませんでした');
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('loading').classList.add('hidden');
+                
+                // エラー時はダミーデータで表示
+                const dummyProduct = {
+                    title: 'ラクマ商品 - サンプル',
+                    price: '15000',
+                    image: 'https://via.placeholder.com/400x400/6366F1/FFFFFF?text=ラクマ商品',
+                    url: url
+                };
+                displayProduct(dummyProduct);
+                
+                alert('自動取得に失敗しました。サンプルデータで表示します。\n商品名は手動で変更してください。');
+            }
+        }
+
+        // HTML解析
+        function extractProductInfo(html, url) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // タイトル取得
+            let title = '';
+            const ogTitle = doc.querySelector('meta[property="og:title"]');
+            const titleTag = doc.querySelector('title');
+            
+            if (ogTitle) {
+                title = ogTitle.getAttribute('content').replace(' | ラクマ', '').replace(' | フリル', '').trim();
+            } else if (titleTag) {
+                title = titleTag.textContent.replace(' | ラクマ', '').replace(' | フリル', '').trim();
+            }
+
+            // 画像取得
+            let image = '';
+            const ogImage = doc.querySelector('meta[property="og:image"]');
+            if (ogImage) {
+                image = ogImage.getAttribute('content');
+            }
+
+            // 価格取得
+            let price = '';
+            const priceMatch = html.match(/¥([\d,]+)/);
+            if (priceMatch) {
+                price = priceMatch[1].replace(',', '');
+            }
+
+            return {
+                title: title || 'ラクマ商品',
+                price: price || '0',
+                image: image || 'https://via.placeholder.com/400x400/6366F1/FFFFFF?text=商品画像',
+                url: url
             };
+        }
 
-            generateProductCode(formData);
-        });
+        // 商品表示
+        function displayProduct(productInfo) {
+            currentProduct = productInfo;
+            
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('productPreview').classList.remove('hidden');
+            
+            document.getElementById('productImage').src = productInfo.image;
+            document.getElementById('productTitle').textContent = productInfo.title;
+            document.getElementById('productPrice').textContent = `¥${parseInt(productInfo.price).toLocaleString()}`;
+            document.getElementById('productUrl').textContent = productInfo.url;
+        }
 
-        // 商品コード生成
-        function generateProductCode(data) {
-            const slug = data.title
+        // サイトに追加
+        function addToSite() {
+            if (!currentProduct) return;
+
+            const slug = currentProduct.title
                 .toLowerCase()
                 .replace(/[^a-zA-Z0-9\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF]/g, '-')
                 .replace(/-+/g, '-')
@@ -165,77 +205,61 @@
                 .substring(0, 96);
 
             const productId = 'product' + Date.now();
+            const imageId = 'img' + Date.now();
 
             const code = `  {
     _id: '${productId}',
-    title: '${data.title}',
+    title: '${currentProduct.title}',
     slug: { current: '${slug}' },
     mainImage: {
       asset: {
-        _id: 'img${Date.now()}',
-        url: '${data.imageUrl}'
+        _id: '${imageId}',
+        url: '${currentProduct.image}'
       },
-      alt: '${data.title}'
+      alt: '${currentProduct.title}'
     },
-    price: ${data.price},${data.originalPrice ? `
-    originalPrice: ${data.originalPrice},` : ''}
-    brand: '${data.brand}',
-    condition: '${data.condition}',
-    isAvailable: ${data.isAvailable},
-    featured: ${data.featured},
-    category: '${data.category}',
-    rakumaUrl: '${data.rakumaUrl}'${data.description ? `,
-    description: '${data.description}'` : ''}
+    price: ${parseInt(currentProduct.price) || 15000},
+    brand: '',
+    condition: 'good',
+    isAvailable: true,
+    featured: true,
+    category: 'other',
+    rakumaUrl: '${currentProduct.url}'
   },`;
 
+            // コード表示
             document.getElementById('codeOutput').textContent = code;
             document.getElementById('generatedCode').classList.remove('hidden');
             
-            // フォームリセット
-            document.getElementById('productForm').reset();
+            // 自動スクロール
+            document.getElementById('generatedCode').scrollIntoView({ behavior: 'smooth' });
             
-            alert('商品コードが生成されました！下のコードをコピーしてmockData.tsに追加してください。');
+            alert('✅ 商品コードが生成されました！\n下のコードをコピーして mockData.ts に追加してください。');
         }
 
         // コピー機能
         function copyCode() {
             const code = document.getElementById('codeOutput').textContent;
             navigator.clipboard.writeText(code).then(() => {
-                alert('コードがクリップボードにコピーされました！');
+                alert('📋 コードがクリップボードにコピーされました！');
+            }).catch(() => {
+                // フォールバック：テキストエリアを作成してコピー
+                const textArea = document.createElement('textarea');
+                textArea.value = code;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('📋 コードがコピーされました！');
             });
         }
 
-        // 既存商品表示（例）
-        const sampleProducts = [
-            {
-                title: 'ラクマ掲載商品 - サンプル商品',
-                price: 15000,
-                originalPrice: 25000,
-                brand: 'ラクマブランド',
-                featured: true
+        // Enterキーで取得
+        document.getElementById('rakumaUrl').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                fetchProductInfo();
             }
-        ];
-
-        function displayExistingProducts() {
-            const container = document.getElementById('existingProducts');
-            sampleProducts.forEach(product => {
-                const discount = product.originalPrice ? 
-                    Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0;
-                
-                container.innerHTML += `
-                    <div class="border border-gray-200 rounded-lg p-4">
-                        <h4 class="font-medium text-sm mb-2">${product.title}</h4>
-                        <p class="text-lg font-bold text-gray-900">¥${product.price.toLocaleString()}</p>
-                        ${product.originalPrice ? `<p class="text-sm text-gray-500 line-through">¥${product.originalPrice.toLocaleString()}</p>` : ''}
-                        ${discount > 0 ? `<span class="inline-block bg-red-100 text-red-800 text-xs px-2 py-1 rounded mt-1">${discount}% OFF</span>` : ''}
-                        ${product.featured ? `<span class="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded mt-1 ml-1">おすすめ</span>` : ''}
-                    </div>
-                `;
-            });
-        }
-
-        // ページ読み込み時に既存商品表示
-        displayExistingProducts();
+        });
     </script>
 </body>
 </html>
